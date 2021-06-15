@@ -228,7 +228,7 @@ public class Main
 					choice = scan.nextLine();
 				break;
 				default:
-				
+
 				break;
 			}
 		}
