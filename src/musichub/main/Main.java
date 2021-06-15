@@ -228,7 +228,7 @@ public class Main
 					choice = scan.nextLine();
 				break;
 				default:
-					System.out.println("Elements, albums and playlists saved!");
+					System.out.println("\nVeuillez mettre une commande valable \n \n");
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break;
