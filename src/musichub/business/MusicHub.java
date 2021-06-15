@@ -215,6 +215,34 @@ public class MusicHub {
 		} else throw new NoPlayListFoundException("Playlist " + playListTitle + " not found!");
 		
 	}
+
+	public void GetAllSong(){
+		List<AudioElement> elem = ChargeFromXml(ELEMENTS_FILE_PATH,true);
+		for (AudioElement ae : elem ) {
+			System.out.println( " Titre :  " + ae.getTitle() + " ;  Artiste :  " + ae.getArtist() );
+		}
+
+	}
+	// true = song, false = audiobook
+	private List<AudioElement> ChargeFromXml(String Fichier, boolean choix ) {
+		List<AudioElement> elem = new ArrayList<AudioElement>();
+		NodeList elementsNodes = xmlHandler.parseXMLFile(Fichier);
+		if(elementsNodes ==  null) return null;
+
+		for (int i=0; i<elementsNodes.getLength(); i++ ) {
+			Element audioElement = (Element) elementsNodes.item(i);
+				if (audioElement.getNodeName().equals("song")) 	{
+					try {
+					AudioElement newSong = new Song(audioElement);
+					elem.add(newSong);
+					}catch(Exception ex) {
+						System.out.println("Test");
+					}
+				}
+		}		
+		return elem;
+	}
+	
 	
 	private void loadAlbums () {
 		NodeList albumNodes = xmlHandler.parseXMLFile(ALBUMS_FILE_PATH);
