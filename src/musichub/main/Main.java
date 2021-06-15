@@ -228,7 +228,9 @@ public class Main
 					choice = scan.nextLine();
 				break;
 				default:
-
+					System.out.println("Elements, albums and playlists saved!");
+					printAvailableCommands();
+					choice = scan.nextLine();
 				break;
 			}
 		}
