@@ -216,6 +216,15 @@ public class MusicHub {
 		
 	}
 
+	public void GetPlaylist(){
+		System.out.println();
+		for (PlayList pl : this.playlists){
+			System.out.println(pl.getTitle());
+		}
+		System.out.println();
+	}
+
+
 	public void GetAllSong(){
 		List<AudioElement> elem = ChargeFromXml(ELEMENTS_FILE_PATH,true);
 		for (AudioElement ae : elem ) {
@@ -223,6 +232,8 @@ public class MusicHub {
 		}
 
 	}
+
+	// J'ai fait cette classe parcequ'elle me permet de connaitre le type d'elements (song or audiobook)
 	// true = song, false = audiobook
 	private List<AudioElement> ChargeFromXml(String Fichier, boolean choix ) {
 		List<AudioElement> elem = new ArrayList<AudioElement>();

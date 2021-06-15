@@ -232,6 +232,11 @@ public class Main
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break; 
+				case 'o':
+					theHub.GetPlaylist();
+					printAvailableCommands();
+					choice = scan.nextLine();
+				break; 
 				default:
 					System.out.println("\nVeuillez mettre une commande valable \n \n");
 					printAvailableCommands();
@@ -249,6 +254,7 @@ public class Main
 		System.out.println("d: display songs of an album");
 		System.out.println("u: display audiobooks ordered by author");
 		System.out.println("e: display all songs");
+		System.out.println("o: display all playlist");
 		System.out.println("c: add a new song");
 		System.out.println("a: add a new album");
 		System.out.println("+: add a song to an album");
