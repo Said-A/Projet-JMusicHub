@@ -4,11 +4,22 @@ import java.util.*;
 
 import java.beans.XMLEncoder;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.BufferedOutputStream;
+
+import javax.sound.sampled.*;
+import java.io.File;
 	
 public class Main
 {
- 	public static void main (String[] args) {
+ 	public static void main (String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+ 		
+ 		File file = new File("Kaaris - Zoo.wav");
+ 		
+ 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+ 		Clip clip = AudioSystem.getClip();
+ 		clip.open(audioStream);
+ 		clip.start();
 
 		MusicHub theHub = new MusicHub ();
 		
