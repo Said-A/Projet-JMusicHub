@@ -254,11 +254,12 @@ public class MusicHub {
 	}
 
 
-	public void GetAllSong(){
+	public List<AudioElement> GetAllSong(){
 		List<AudioElement> elem = ChargeFromXml(ELEMENTS_FILE_PATH,true);
-		for (AudioElement ae : elem ) {
+		/*for (AudioElement ae : elem ) {
 			System.out.println( " Titre :  " + ae.getTitle() + " ;  Artiste :  " + ae.getArtist() );
-		}
+		}*/
+		return elem;
 
 	}
 
@@ -283,7 +284,51 @@ public class MusicHub {
 		return elem;
 	}
 	
-	
+
+
+	public List<String> GetAllBySearch(String sc){
+
+		List<String> ls = new ArrayList<String>();
+
+		for(Album al :this.albums){
+			if(al.getTitle().contains(sc))
+				ls.add(al.getTitle());
+		}
+
+		for(PlayList pl :this.playlists){
+			if(pl.getTitle().contains(sc))
+				ls.add(pl.getTitle());
+		}
+
+		return ls;
+
+	}
+/*
+	public List<PlayList> GetAllBySearchPl(String sc){
+
+		List<PlayList> ls = new ArrayList<PlayList>();
+
+		for(PlayList pl :this.playlists){
+			if(pl.getTitle().contains(sc))
+				ls.add(pl.getTitle());
+		}
+		return ls;
+
+	}
+*/
+	public List<AudioElement> GetAllBySearchAE(String sc){
+
+		List<AudioElement> ls = new ArrayList<AudioElement>();
+		for(AudioElement ae :this.elements){
+			if(ae.getTitle().contains(sc))
+				ls.add(ae);
+		}
+
+		return ls;
+
+	}
+
+
 	private void loadAlbums () {
 		NodeList albumNodes = xmlHandler.parseXMLFile(ALBUMS_FILE_PATH);
 		if (albumNodes == null) return;

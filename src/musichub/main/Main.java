@@ -229,7 +229,7 @@ public class Main
 					choice = scan.nextLine();
 				break;
 				case 'e':
-					theHub.GetAllSong();
+					System.out.println(theHub.GetAllSong());
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break; 
@@ -245,6 +245,19 @@ public class Main
 					play = scan.nextLine();
 					try{
 						System.out.println(theHub.GetElementInPlaylist(play));
+					}catch(Exception e ){
+						System.out.println("Error");
+					}
+					printAvailableCommands();
+					choice = scan.nextLine();
+				break; 
+				case 'r':
+					System.out.println("Search by name :");
+					String sce = scan.nextLine();
+					try{
+						System.out.println(theHub.GetAllBySearch(sce));
+						//System.out.println(theHub.GetAllBySearchPl(sce));
+						System.out.println(theHub.GetAllBySearchAE(sce));
 					}catch(Exception e ){
 						System.out.println("Error");
 					}
@@ -269,6 +282,7 @@ public class Main
 		System.out.println("u: display audiobooks ordered by author");
 		System.out.println("e: display all songs");
 		System.out.println("o: display all playlist");
+		System.out.println("r: Search :");
 		System.out.println("z: display detail of a playlist");
 		System.out.println("c: add a new song");
 		System.out.println("a: add a new album");
