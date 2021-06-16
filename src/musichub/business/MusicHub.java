@@ -224,6 +224,35 @@ public class MusicHub {
 		System.out.println();
 	}
 
+	public List<AudioElement> GetElementInPlaylist(String playTitle) throws NoPlayListFoundException{
+
+		PlayList play = null;
+		List<AudioElement> audio = new ArrayList<AudioElement>();
+		for(PlayList p : this.playlists){
+			if(p.getTitle().toLowerCase().equals(playTitle.toLowerCase())){
+				play = p;
+				break;
+			}
+		}
+		if(play== null) throw new NoPlayListFoundException("No playlist found !!");
+		List<UUID> el = play.getElements();
+		for(UUID u : el){
+			audio.add(GetElementsByUUID(u));
+		}
+
+		return audio;
+
+	}
+
+
+	private AudioElement GetElementsByUUID(UUID ui){
+		for (AudioElement ae : this.elements ) {
+			if(ae.getUUID().equals(ui))
+				return ae;
+		}
+		return null;
+	}
+
 
 	public void GetAllSong(){
 		List<AudioElement> elem = ChargeFromXml(ELEMENTS_FILE_PATH,true);
@@ -247,7 +276,7 @@ public class MusicHub {
 					AudioElement newSong = new Song(audioElement);
 					elem.add(newSong);
 					}catch(Exception ex) {
-						System.out.println("Test");
+						System.out.println("Erreur de lecture");
 					}
 				}
 		}		

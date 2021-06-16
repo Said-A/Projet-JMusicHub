@@ -19,7 +19,8 @@ public class Main
 		String choice = scan.nextLine();
 		
 		String albumTitle = null;
-		
+		String play = null;
+
 		if (choice.length() == 0) System.exit(0);						
 		
 		while (choice.charAt(0)!= 'q') 	{
@@ -237,6 +238,19 @@ public class Main
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break; 
+				case 'z':
+					System.out.println("List of playlist :");
+					theHub.GetPlaylist();
+					System.out.println("\nChoose a playlist :");
+					play = scan.nextLine();
+					try{
+						System.out.println(theHub.GetElementInPlaylist(play));
+					}catch(Exception e ){
+						System.out.println("Error");
+					}
+					printAvailableCommands();
+					choice = scan.nextLine();
+				break; 
 				default:
 					System.out.println("\nVeuillez mettre une commande valable \n \n");
 					printAvailableCommands();
@@ -255,6 +269,7 @@ public class Main
 		System.out.println("u: display audiobooks ordered by author");
 		System.out.println("e: display all songs");
 		System.out.println("o: display all playlist");
+		System.out.println("z: display detail of a playlist");
 		System.out.println("c: add a new song");
 		System.out.println("a: add a new album");
 		System.out.println("+: add a song to an album");
