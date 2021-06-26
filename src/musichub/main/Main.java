@@ -14,12 +14,6 @@ public class Main
 {
  	public static void main (String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
  		
- 		File file = new File("Kaaris - Zoo.wav");
- 		
- 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
- 		Clip clip = AudioSystem.getClip();
- 		clip.open(audioStream);
- 		clip.start();
 
 		MusicHub theHub = new MusicHub ();
 		
@@ -57,6 +51,7 @@ public class Main
 					} catch (NoAlbumFoundException ex) {
 						System.out.println("No album found with the requested title " + ex.getMessage());
 					}
+					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break;
@@ -71,12 +66,14 @@ public class Main
 					} catch (NoAlbumFoundException ex) {
 						System.out.println("No album found with the requested title " + ex.getMessage());
 					}
+					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break;
 				case 'u':
 					//audiobooks ordered by author
 					System.out.println(theHub.getAudiobooksTitlesSortedByAuthor());
+					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break;
@@ -241,15 +238,23 @@ public class Main
 				break;
 				case 'e':
 					System.out.println(theHub.GetAllSong());
+					System.out.println("choose an Audio : ");
+					/*String choix = scan.nextLine();
+					String cont = theHub.GetElementContent(choix);
+					if (cont!= "")PlayMusic(cont);
+					else System.out.println("Error the music doesn't exist");*/
+					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break; 
 				case 'o':
+					//display all playlist
 					theHub.GetPlaylist();
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break; 
 				case 'z':
+					//display detail of a playlist
 					System.out.println("List of playlist :");
 					theHub.GetPlaylist();
 					System.out.println("\nChoose a playlist :");
@@ -259,10 +264,12 @@ public class Main
 					}catch(Exception e ){
 						System.out.println("Error");
 					}
+					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break; 
 				case 'r':
+					//Search 
 					System.out.println("Search by name :");
 					String sce = scan.nextLine();
 					try{
@@ -272,6 +279,7 @@ public class Main
 					}catch(Exception e ){
 						System.out.println("Error");
 					}
+					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break; 
@@ -282,8 +290,35 @@ public class Main
 				break;
 			}
 		}
-		System.out.println("Bye bye  :) ");
+		System.out.println("Bye bye   :) ");
 		scan.close();
+	}
+
+	private static void PlayMusic(String content) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+
+		try{
+			File file = new File(content);
+	 		
+	 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+	 		Clip clip = AudioSystem.getClip();
+	 		clip.open(audioStream);
+	 		clip.start();
+ 		}catch(Exception e){
+ 			System.out.println("This content doesn't exist");
+ 		}
+
+	}
+
+	private static void GetContentForPlay(MusicHub theHub) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+
+		Scanner scanContent = new Scanner(System.in);
+		String choix = scanContent.nextLine();
+		String cont = theHub.GetElementContent(choix);
+
+		if (cont!= "")PlayMusic(cont);
+		else System.out.println("Error the music doesn't exist");
+
+
 	}
 	
 	private static void printAvailableCommands() {

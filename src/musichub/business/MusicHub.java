@@ -328,6 +328,20 @@ public class MusicHub {
 
 	}
 
+	public String GetElementContent(String title){
+
+		String content="";
+
+		for(AudioElement ae : this.elements){
+			if(ae.getTitle().equals(title)){
+				content= ae.getContent();
+				break;
+			}
+		}
+		return content;
+	}
+	
+
 
 	private void loadAlbums () {
 		NodeList albumNodes = xmlHandler.parseXMLFile(ALBUMS_FILE_PATH);
