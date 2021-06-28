@@ -1,25 +1,39 @@
 package musichub.main;
-import musichub.business.*;
+import model.*;
+
 import java.util.*;
 
 import java.beans.XMLEncoder;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.BufferedOutputStream;
+
+import javax.sound.sampled.*;
+
+import controller.*;
+
+import java.io.File;
 	
 public class Main
 {
- 	public static void main (String[] args) {
+ 	public static void main (String[] args) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
+ 		
 
 		MusicHub theHub = new MusicHub ();
 		
 		System.out.println("Type h for available commands");
 		
-		
+		List<String> ls = new ArrayList<String>();
+		List<AudioElement> lsAe = new ArrayList<AudioElement>();
+
 		Scanner scan = new Scanner(System.in);
 		String choice = scan.nextLine();
 		
 		String albumTitle = null;
-		
+		String play = null;
+		String playl =null;
+		String elementToAdd=null;
+
 		if (choice.length() == 0) System.exit(0);						
 		
 		while (choice.charAt(0)!= 'q') 	{
@@ -45,6 +59,7 @@ public class Main
 					} catch (NoAlbumFoundException ex) {
 						System.out.println("No album found with the requested title " + ex.getMessage());
 					}
+					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break;
@@ -59,12 +74,14 @@ public class Main
 					} catch (NoAlbumFoundException ex) {
 						System.out.println("No album found with the requested title " + ex.getMessage());
 					}
+					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break;
 				case 'u':
 					//audiobooks ordered by author
 					System.out.println(theHub.getAudiobooksTitlesSortedByAuthor());
+					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break;
@@ -138,7 +155,7 @@ public class Main
 					System.out.println("Song added to the album!");
 					printAvailableCommands();
                     choice = scan.nextLine();
-					break;
+				break;
 				case 'l':
 					// add a new audiobook
                     System.out.println("Enter a new audiobook: ");
@@ -227,13 +244,141 @@ public class Main
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break;
-				default:
+				case 'e':
+					System.out.println(theHub.GetAllSong());
+					System.out.println("choose an Audio : ");
+					/*String choix = scan.nextLine();
+					String cont = theHub.GetElementContent(choix);
+					if (cont!= "")PlayMusic(cont);
+					else System.out.println("Error the music doesn't exist");*/
+					GetContentForPlay(theHub);
+					printAvailableCommands();
+					choice = scan.nextLine();
+				break; 
+				case 'o':
+					//display all playlist
+					theHub.GetPlaylist();
+					printAvailableCommands();
+					choice = scan.nextLine();
+				break; 
+				case 'z':
+					//display detail of a playlist
+					System.out.println("List of playlist :");
+					theHub.GetPlaylist();
+					System.out.println("\nChoose a playlist :");
+					play = scan.nextLine();
+					try{
+						System.out.println(theHub.GetElementInPlaylist(play));
+					}catch(Exception e ){
+						System.out.println("Error");
+					}
+					GetContentForPlay(theHub);
+					printAvailableCommands();
+					choice = scan.nextLine();
+				break; 
+				case 'r':
+					//Search 
+					System.out.println("Search by name :");
+					String sce = scan.nextLine();
 
+					try{
+						ls = theHub.GetAllBySearch(sce);
+						if(ls.size() != 0)
+							System.out.println(ls);
+						lsAe = theHub.GetAllBySearchAE(sce);
+						System.out.println(lsAe);
+					}catch(Exception e ){
+						System.out.println("Error");
+					}
+					GetContentForPlay(theHub);
+					printAvailableCommands();
+					choice = scan.nextLine();
+				break; 
+				case 'y' :
+					theHub.GetPlaylist();
+					System.out.println("choose a playlist");
+					playl = scan.nextLine();
+					Iterator<AudioElement> ite = theHub.elements();
+					while (ite.hasNext()) {
+						AudioElement ae = ite.next();
+						if ( ae instanceof Song) System.out.println(ae.getTitle());
+					}
+					
+					while (choice.charAt(0)!= 'n') 	{
+						System.out.println("Type the name of the audio element you wish to add or 'n' to exit:");
+						elementToAdd = scan.nextLine();	
+                        try {
+                            theHub.addElementToPlayList(elementToAdd, playl);
+                        } catch (NoPlayListFoundException ex) {
+                            System.out.println (ex.getMessage());
+                        } catch (NoElementFoundException ex) {
+                            System.out.println (ex.getMessage());
+                        }
+    					System.out.println(elementToAdd +" added to " + playl);
+						System.out.println("Type y to add a new one, n to end");
+						choice = scan.nextLine();
+					}
+					System.out.println("To save this change wirte s");
+					printAvailableCommands();
+					choice = scan.nextLine();
+				break;
+				default:
+					System.out.println("\nVeuillez mettre une commande valable \n \n");
+					printAvailableCommands();
+					choice = scan.nextLine();
 				break;
 			}
 		}
-		System.out.println("Bye bye  :) ");
+		System.out.println("Bye bye   :) ");
 		scan.close();
+	}
+
+	private static void PlayMusic(String content) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+
+		try{
+			File file = new File(content);
+	 		AudioInputStream audioStream = AudioSystem.getAudioInputStream(file);
+	 		Clip clip = AudioSystem.getClip();
+	 		clip.open(audioStream);
+	 		clip.start();
+
+	 		Scanner scanMusic = new Scanner(System.in);
+			String choix = scanMusic.nextLine();
+	 		while(choix.charAt(0)!= 'q'){
+	 			switch (choix.charAt(0)) 	{
+	 				case 's':
+	 					clip.stop();
+	 					choix = scanMusic.nextLine();
+	 				break;
+	 				case 'p': 
+	 					clip.start();
+	 					choix = scanMusic.nextLine();
+	 				break;
+	 				default: 
+	 					System.out.println("\nVeuillez mettre une commande valable \n \n");
+	 					choix = scanMusic.nextLine();
+	 				break;
+	 			}
+	 		}
+	 		clip.close();
+	 		System.out.println("Close the music");
+
+ 		}catch(Exception e){
+ 			System.out.println("This content doesn't exist");
+ 		}
+
+	}
+
+	private static void GetContentForPlay(MusicHub theHub) throws UnsupportedAudioFileException, IOException, LineUnavailableException{
+
+		Scanner scanContent = new Scanner(System.in);
+		String choix = scanContent.nextLine();
+		String cont = theHub.GetElementContent(choix);
+
+		if (cont!= "")PlayMusic(cont);
+		else System.out.println("Error the music doesn't exist");
+
+
 	}
 	
 	private static void printAvailableCommands() {
@@ -241,6 +386,11 @@ public class Main
 		System.out.println("g: display songs of an album, ordered by genre");
 		System.out.println("d: display songs of an album");
 		System.out.println("u: display audiobooks ordered by author");
+		System.out.println("e: display all songs");
+		System.out.println("o: display all playlist");
+		System.out.println("r: Search :");
+		System.out.println("z: display detail of a playlist");
+		System.out.println("y: add a song or audioBook to a playlist");
 		System.out.println("c: add a new song");
 		System.out.println("a: add a new album");
 		System.out.println("+: add a song to an album");
