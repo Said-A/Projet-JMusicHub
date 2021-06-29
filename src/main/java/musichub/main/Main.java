@@ -1,5 +1,10 @@
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 package main.java.musichub.main;
 import main.java.model.*;
+=======
+package musichub.main;
+import model.*;
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 
 import java.util.*;
 
@@ -10,7 +15,11 @@ import java.io.BufferedOutputStream;
 
 import javax.sound.sampled.*;
 
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 import main.java.controlleur.*;
+=======
+import controller.*;
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 
 import java.io.File;
 	
@@ -34,10 +43,14 @@ public class Main
 		String playl =null;
 		String elementToAdd=null;
 
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 		if (choice.length() == 0) System.exit(0);	
 		LoggerForMusic log = new LoggerForMusic();
 
 		log.LogInfo("Lancement de l'app V1.2");					
+=======
+		if (choice.length() == 0) System.exit(0);						
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 		
 		while (choice.charAt(0)!= 'q') 	{
 			switch (choice.charAt(0)) 	{
@@ -256,24 +269,39 @@ public class Main
 					choice = scan.nextLine();
 				break;
 				case 'e':
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 					//display all songs
 					log.LogInfo("Display all songs");
 					System.out.println(theHub.GetAllSong());
 					System.out.println("choose an Audio : ");
+=======
+					System.out.println(theHub.GetAllSong());
+					System.out.println("choose an Audio : ");
+					/*String choix = scan.nextLine();
+					String cont = theHub.GetElementContent(choix);
+					if (cont!= "")PlayMusic(cont);
+					else System.out.println("Error the music doesn't exist");*/
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 					GetContentForPlay(theHub);
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break; 
 				case 'o':
 					//display all playlist
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 					log.LogInfo("Display all playlist");
+=======
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 					theHub.GetPlaylist();
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break; 
 				case 'z':
 					//display detail of a playlist
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 					log.LogInfo("Display detail of a playlist");
+=======
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 					System.out.println("List of playlist :");
 					theHub.GetPlaylist();
 					System.out.println("\nChoose a playlist :");
@@ -289,7 +317,10 @@ public class Main
 				break; 
 				case 'r':
 					//Search 
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 					log.LogInfo("Search with string");
+=======
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 					System.out.println("Search by name :");
 					String sce = scan.nextLine();
 
@@ -307,8 +338,11 @@ public class Main
 					choice = scan.nextLine();
 				break; 
 				case 'y' :
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 					//add a song or audioBook to a playlist
 					log.LogInfo("Add a song or audioBook to a playlist");
+=======
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 					theHub.GetPlaylist();
 					System.out.println("choose a playlist");
 					playl = scan.nextLine();
@@ -337,14 +371,20 @@ public class Main
 					choice = scan.nextLine();
 				break;
 				default:
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 					log.LogInfo("Default");
+=======
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 					System.out.println("\nVeuillez mettre une commande valable \n \n");
 					printAvailableCommands();
 					choice = scan.nextLine();
 				break;
 			}
 		}
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 		log.LogWarning("END");
+=======
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 		System.out.println("Bye bye   :) ");
 		scan.close();
 	}
@@ -357,7 +397,10 @@ public class Main
 	 		Clip clip = AudioSystem.getClip();
 	 		clip.open(audioStream);
 	 		clip.start();
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
 	 		System.out.println("s: stop , p : play, q : quit");
+=======
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 
 	 		Scanner scanMusic = new Scanner(System.in);
 			String choix = scanMusic.nextLine();
@@ -394,6 +437,11 @@ public class Main
 
 		if (cont!= "")PlayMusic(cont);
 		else System.out.println("Error the music doesn't exist");
+<<<<<<< HEAD:src/main/java/musichub/main/Main.java
+=======
+
+
+>>>>>>> 492d4d6a919a8ac0d1d39dc33d11c5cb0ad42313:src/musichub/main/Main.java
 	}
 	
 	private static void printAvailableCommands() {
