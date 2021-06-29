@@ -1,6 +1,8 @@
-juin 29, 2021 5:54:43 AM main.java.controlleur.LoggerForMusic LogInfo
+juin 29, 2021 6:30:24 AM main.java.controlleur.LoggerForMusic LogInfo
 INFOS: Lancement de l'app V1.2
-juin 29, 2021 5:54:45 AM main.java.controlleur.LoggerForMusic LogInfo
+juin 29, 2021 6:30:28 AM main.java.controlleur.LoggerForMusic LogInfo
 INFOS: Search with string
-juin 29, 2021 5:55:00 AM main.java.controlleur.LoggerForMusic LogInfo
+juin 29, 2021 6:30:36 AM main.java.controlleur.LoggerForMusic LogInfo
 INFOS: Search with string
+juin 29, 2021 6:30:46 AM main.java.controlleur.LoggerForMusic LogWarning
+AVERTISSEMENT: END
