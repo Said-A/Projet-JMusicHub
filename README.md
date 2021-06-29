@@ -3,7 +3,7 @@ V1.2.1
 
 C'est une version qui se lance dans la console. 
 
-#Fonctionnalitées
+# Fonctionnalitées
 t: display the album titles, ordered by date
 g: display songs of an album, ordered by genre
 d: display songs of an album
